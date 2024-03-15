@@ -7,6 +7,25 @@ export default function Chat() {
 
     const usuario = localStorage.getItem('usuario')
 
+    const ws = new WebSocket('ws://localhost:8080')
+
+
+    ws.onopen = (event) => {
+        console.log(`Conexão aberta! ${event}`)
+    }
+
+    ws.onmessage = function (event) {
+
+        const mensagem = JSON.parse(event.data);
+
+        setMensagens((prevMessages) => [...prevMessages, mensagem]);
+
+    }
+
+    ws.onerror = (event) => {
+        console.log('Error in connection')
+    }
+
     const [mensagens, setMensagens] = useState([]);
 
     const [mensagem, setMensagem] = useState('');
@@ -17,6 +36,9 @@ export default function Chat() {
             autor: usuario,
             texto: mensagem
         }
+
+        ws.send(JSON.stringify(novaMensagem));
+
 
         setMensagem('');
 
