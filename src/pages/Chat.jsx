@@ -1,34 +1,43 @@
 import ScrollableFeed from "react-scrollable-feed";
 import Mensagem from "../components/Mensagem";
 import './chat.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Chat() {
 
     const usuario = localStorage.getItem('usuario')
 
-    const ws = new WebSocket('ws://localhost:8080')
-
-
-    ws.onopen = (event) => {
-        console.log(`Conexão aberta! ${event}`)
-    }
-
-    ws.onmessage = function (event) {
-
-        const mensagem = JSON.parse(event.data);
-
-        setMensagens((prevMessages) => [...prevMessages, mensagem]);
-
-    }
-
-    ws.onerror = (event) => {
-        console.log('Error in connection')
-    }
-
     const [mensagens, setMensagens] = useState([]);
 
     const [mensagem, setMensagem] = useState('');
+
+    const [wss, setWs] = useState(null);
+
+    useEffect(() => {
+        const ws = new WebSocket('ws://localhost:8080')
+
+        setWs(ws)
+
+        ws.onopen = (event) => {
+            console.log(`Conexão aberta! ${event}`)
+        }
+
+        ws.onmessage = function (event) {
+
+            const mensagem = JSON.parse(event.data);
+
+            setMensagens((prevMessages) => [...prevMessages, mensagem]);
+        }
+
+        ws.onerror = (event) => {
+            console.log('Error in connection')
+        }
+
+        return () => {
+            ws.close()
+        }
+
+    }, [])
 
     function EnviarMensagem() {
 
@@ -37,12 +46,10 @@ export default function Chat() {
             texto: mensagem
         }
 
-        ws.send(JSON.stringify(novaMensagem));
+        wss.send(JSON.stringify(novaMensagem));
 
 
         setMensagem('');
-
-        setMensagens((prevMessages) => [...prevMessages, novaMensagem])
     }
 
     return (
