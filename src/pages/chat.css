@@ -1,0 +1,25 @@
+#bt {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+#bt:hover {
+    background-color: #005c4b;
+    border-radius: 10px;
+}
+
+
+
+#campo {
+    background-color: #2a3942;
+    border: none;
+    color:white;
+}
+
+#campo:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}

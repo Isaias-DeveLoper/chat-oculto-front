@@ -1,18 +1,34 @@
 import ScrollableFeed from "react-scrollable-feed";
 import Mensagem from "../components/Mensagem";
+import './chat.css';
+import { useState } from "react";
 
 export default function Chat() {
 
     const usuario = localStorage.getItem('usuario')
 
-    const mensagens = []
+    const [mensagens, setMensagens] = useState([]);
+
+    const [mensagem, setMensagem] = useState('');
+
+    function EnviarMensagem() {
+
+        const novaMensagem = {
+            autor: usuario,
+            texto: mensagem
+        }
+
+        setMensagem('');
+
+        setMensagens((prevMessages) => [...prevMessages, novaMensagem])
+    }
 
     return (
         <>
             <main className="d-flex w-100 flex-column">
                 <section style={{
                     flex: 1,
-                    maxHeight:'93vh',
+                    maxHeight: '93vh',
                 }}>
                     <ScrollableFeed>
                         <div className="d-flex flex-column gap-1 p-2">
@@ -31,7 +47,7 @@ export default function Chat() {
                         </div>
                     </ScrollableFeed>
                 </section>
-                <footer className="d-flex p-2"
+                <footer className="d-flex p-2 gap-1"
                     style={{
                         backgroundColor: '#202c33',
                         position: 'absolute',
@@ -40,18 +56,15 @@ export default function Chat() {
                     }}>
 
                     <input
+                        id="campo"
                         className="w-100 form-control"
                         placeholder="Digite uma mensagem"
-                        style={{
-                            backgroundColor: '#2a3942',
-                            border: 'none'
-                        }}>
-                    </input>
+                        value={mensagem}
+                        onChange={e => setMensagem(e.target.value)} />
 
-                    <button>
-                        En
+                    <button id="bt" onClick={() => EnviarMensagem()}>
+                        Enviar
                     </button>
-
                 </footer>
             </main >
         </>
