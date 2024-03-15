@@ -39,7 +39,7 @@ export default function Chat() {
     const [wss, setWs] = useState(null);
 
     useEffect(() => {
-        const ws = new WebSocket('ws://localhost:8080')
+        const ws = new WebSocket('wss://chat-oculto-back-ws.onrender.com')
 
         setWs(ws)
 
