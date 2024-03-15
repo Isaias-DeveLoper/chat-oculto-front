@@ -8,6 +8,8 @@ export default function Mensagem({ informacoes, estilizacao }) {
                 style={{
                     backgroundColor: [estilizacao.background],
                     color: [estilizacao.color],
+                    marginLeft:'15px',
+                    marginRight:'15px'
                 }}
             >
                 <header>
