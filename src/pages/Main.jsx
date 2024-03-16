@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
 export default function Main() {
 
@@ -7,15 +8,19 @@ export default function Main() {
     const [usuario, setUsuario] = useState('');
     const navigate = useNavigate();
 
+
+    function Criptografar(usuario){
+        return CryptoJS.AES.encrypt(usuario,'anonymous').toString().substring(30)
+    }
+
     function Entrar(e) {
         e.preventDefault();
 
-        localStorage.setItem('usuario',usuario);
+        localStorage.setItem('usuario',Criptografar(usuario));
 
         setUsuario('');
 
         navigate('/chat');
-
     }
     return (
         <>
