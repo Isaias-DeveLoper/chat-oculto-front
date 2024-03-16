@@ -1,22 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CryptoJS from "crypto-js";
+import { sha256 } from "js-sha256";
 
 export default function Main() {
-
 
     const [usuario, setUsuario] = useState('');
     const navigate = useNavigate();
 
-
-    function Criptografar(usuario){
-        return CryptoJS.AES.encrypt(usuario,'anonymous').toString().substring(30)
-    }
-
     function Entrar(e) {
         e.preventDefault();
 
-        localStorage.setItem('usuario',Criptografar(usuario));
+        localStorage.setItem('usuario',sha256(usuario).substring(35));
 
         setUsuario('');
 

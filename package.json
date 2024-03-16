@@ -13,6 +13,7 @@
     "bootstrap": "^5.3.3",
     "crypto-js": "^4.2.0",
     "emoji-picker-react": "^4.8.0",
+    "js-sha256": "^0.11.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",
