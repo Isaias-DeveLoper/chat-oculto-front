@@ -10,7 +10,10 @@ export default function Main() {
     function Entrar(e) {
         e.preventDefault();
 
-        localStorage.setItem('usuario',sha256(usuario).substring(35));
+
+        let nomeCriptografado = sha256(usuario).substring(20);
+
+        localStorage.setItem('usuario',nomeCriptografado);
 
         setUsuario('');
 
