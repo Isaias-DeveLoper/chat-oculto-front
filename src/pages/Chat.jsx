@@ -87,7 +87,7 @@ export default function Chat() {
 
                 <section style={{
                     flex: 1,
-                    maxHeight: '93vh',
+                    maxHeight: '86vh',
                 }}>
                     <ScrollableFeed ref={feedRef}>
                         <div className="d-flex flex-column gap-1 p-2">
