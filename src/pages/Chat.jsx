@@ -31,9 +31,9 @@ export default function Chat() {
 
     const handleKeyPress = (evento) => {
         if (evento.key === 'Enter') {
-          EnviarMensagem();
+            EnviarMensagem();
         }
-      };
+    };
 
 
     const [wss, setWs] = useState(null);
@@ -66,19 +66,22 @@ export default function Chat() {
 
     function EnviarMensagem() {
 
-        const novaMensagem = {
-            autor: usuario,
-            texto: mensagem
+        if (mensagem.length != 0) {
+            const novaMensagem = {
+                autor: usuario,
+                texto: mensagem
+            }
+
+            wss.send(JSON.stringify(novaMensagem));
+
+
+            setMensagem('');
+
+            if (feedRef.current) {
+                feedRef.current.scrollToBottom();
+            }
         }
 
-        wss.send(JSON.stringify(novaMensagem));
-
-
-        setMensagem('');
-
-        if (feedRef.current) {
-            feedRef.current.scrollToBottom();
-        }
     }
 
     return (
@@ -109,7 +112,7 @@ export default function Chat() {
 
                 <div className="emoji-picker d-flex flex-column" style={{ position: 'absolute', top: '13%' }}>
                     {showEmojiPicker && (
-                        <EmojiPicker onEmojiClick={handleEmojiSelect} searchDisabled/>
+                        <EmojiPicker onEmojiClick={handleEmojiSelect} searchDisabled />
                     )}
                 </div>
 
