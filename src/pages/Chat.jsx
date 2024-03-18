@@ -44,7 +44,7 @@ export default function Chat() {
         setWs(ws)
 
         ws.onopen = (event) => {
-            console.log(`Conexão aberta! ${event}`)
+            console.log(`Conexão aberta!`)
         }
 
         ws.onmessage = function (event) {
