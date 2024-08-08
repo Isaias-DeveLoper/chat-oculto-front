@@ -12,13 +12,9 @@ export default function Mensagem({ informacoes, estilizacao }) {
                     marginRight:'15px'
                 }}
             >
-                <header>
-                    {informacoes.autor != usuario ? <span> <b>{informacoes.autor}</b> </span> : <></>}
-                </header>
                 <main className="text-break">
                     {informacoes.texto}
                 </main>
-
             </div>
         </>
     );
